@@ -1,0 +1,114 @@
+.item {
+    width: 30%;
+    height: 350px;
+    position: relative;
+    color: #FFFFFF;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+    .item {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .item {
+        height: 260px;
+    }
+}
+
+.item:hover .itemIngredients {
+    max-height: 150px;
+}
+
+.item:hover .itemInfo {
+    height: 80%;
+    background-image: url("/src/assets/item-bg.png");
+}
+
+.item:hover .itemName,
+.item:hover .itemCategory,
+.item:hover .itemTags {
+    color: #000000;
+}
+
+.itemInfo {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-image: url("/src/assets/transparent.png");
+    background-size: contain;
+    background-repeat: repeat;
+    transition: all 0.3s;
+}
+
+.infoWrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    padding: 30px 10px 20px;
+    color: #d7d7d7;
+}
+
+.itemCategory,
+.itemTags,
+.itemName {
+    font-weight: 700;
+}
+
+.itemName {
+    font-size: 36px;
+    line-height: 30px;
+}
+
+.itemCategory {
+    font-size: 14px;
+}
+
+.itemIngredients {
+    max-height: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    color: #000000;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+.favButton,
+.favInput {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+}
+
+.favButton {
+    top: 20px;
+    right: 20px;
+}
+
+.favInput {
+    opacity: 0;
+}
+
+.customFavButton {
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-image: url("/src/assets/empty-heart.png");
+    background-size: contain;
+}
+
+.favInput:checked + .customFavButton {
+    background-image: url("/src/assets/fill-heart.png");
+}

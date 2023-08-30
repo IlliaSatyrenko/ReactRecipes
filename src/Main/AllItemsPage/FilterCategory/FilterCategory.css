@@ -1,0 +1,76 @@
+.category-button,
+.option-button {
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    text-align: start;
+    border: 0;
+    border-bottom: 1px solid #ffa135;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.category-button {
+    position: relative;
+    background-color: #ffeeda;
+}
+
+@media screen and (max-width: 1199px) {
+    .category-button {
+        background-color: #fdefdd;
+    }
+}
+
+.option-button {
+    background-color: transparent;
+}
+
+@media screen and (max-width: 1199px) {
+    .option-button {
+        background-color: #fffaf4;
+    }
+}
+
+.category-button:hover,
+.option-button:hover {
+    background-color: #ffa13530;
+}
+
+@media screen and (max-width: 1199px) {
+    .category-button:hover,
+    .option-button:hover {
+        background-color: #ffd29e;
+    }
+}
+
+.category-options {
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.category-arrow {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.category-arrow::before,
+.category-arrow::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 2px;
+    position: absolute;
+    background-color: #ffa135;
+    transform: rotate(45deg);
+}
+
+.category-arrow::before {
+    transform: rotate(-45deg);
+    right: -12px;
+}

@@ -1,0 +1,182 @@
+main .wrapper {
+    width: 85vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    padding-bottom: 70px;
+    margin: 0 auto;
+}
+
+.itemButton {
+    width: 100px;
+    position: relative;
+    top: 10px;
+    font-size: 18px;
+    color: #ffa135;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.itemButton::after,
+.itemButton::before {
+    content: "";
+    width: 2px;
+    height: 8px;
+    display: block;
+    position: absolute;
+    left: -6px;
+    background-color: #ffa135;
+}
+
+.itemButton::after {
+    top: 8px;
+    transform: rotate(45deg);
+}
+
+.itemButton::before {
+    top: 12px;
+    transform: rotate(-45deg);
+}
+
+.itemHeader {
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+@media screen and (max-width: 991px) {
+    .itemHeader {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .itemHeader {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .itemHeader {
+        font-size: 1rem;
+    }
+}
+
+.itemCategory {
+    color: #b1b1b1;
+    font-weight: 700;
+}
+
+.itemVideo {
+    width: 1000px;
+    height: 562px;
+    margin: 0 auto;
+    background: gray;
+}
+
+@media screen and (max-width: 1199px) {
+    .itemVideo {
+        width: 850px;
+        height: 478px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .itemVideo {
+        width: 650px;
+        height: 366px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .itemVideo {
+        width: 500px;
+        height: 280px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .itemVideo {
+        max-width: 500px;
+        width: 100%;
+        height: 280px;
+    }
+}
+
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 8%;
+}
+
+.tagsHeader {
+    margin-bottom: 10px;
+}
+
+.itemIngredients {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.ingredientsHeader {
+    width: 100%;
+}
+
+.ingredientsWrapper,
+.measuresWrapper {
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.measuresWrapper {
+    min-width: 100px;
+}
+
+@media screen and (max-width: 767px) {
+    .ingredientsWrapper span {
+        max-width: 370px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .ingredientsWrapper,
+    .measuresWrapper {
+        width: 100%;
+        gap: 0;
+    }
+}
+
+.itemInstruction {
+    padding: 40px;
+    background-color: #ffa135;
+    border-radius: 16px;
+    font-size: 1.4rem;
+    text-align: justify;
+}
+
+@media screen and (max-width: 991px) {
+    .itemInstruction {
+        padding: 30px;
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .itemInstruction {
+        padding: 20px;
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .itemInstruction {
+        font-size: 1rem;
+    }
+}

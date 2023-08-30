@@ -1,0 +1,30 @@
+header {
+    height: 80px;
+    background-color: #fff6ea;
+    border-bottom: 2px solid #ffa135;
+}
+
+header .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+    background-size: contain;
+}
+
+@media screen and (max-width: 991px) {
+    .logo {
+        height: auto;
+        width: 50vw;
+        max-width: 310px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .logo {
+        width: 45vw;
+    }
+}
