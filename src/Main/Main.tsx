@@ -6,9 +6,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function Main() {
     return (
         <main style={{ minHeight: "100vh", backgroundColor: "#fff6ea" }}>
-            <BrowserRouter>
+            <BrowserRouter basename="/Recipes">
                 <Routes>
-                    <Route path="/" element={<Navigate to="all-items" />} />
+                    <Route path="/Recipes" element={<Navigate to="all-items" />} />
                     <Route path="item/:id" element={<ItemPage />} />
                     <Route path="all-items" element={<AllItemsPage />} />
                     <Route path="*" element={<InvalidPath />} />
