@@ -11,7 +11,7 @@ function Main() {
                     <Route path="all-items" element={<AllItemsPage />} />
                     <Route path="item/:id" element={<ItemPage />} />
                     {/* <Route path="all-items" element={<AllItemsPage />} /> */}
-                    <Route path="*" element={<InvalidPath />} />
+                    {/* <Route path="*" element={<InvalidPath />} /> */}
                 </Routes>
             </BrowserRouter>
         </main>
