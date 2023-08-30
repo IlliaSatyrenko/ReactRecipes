@@ -8,9 +8,9 @@ function Main() {
         <main style={{ minHeight: "100vh", backgroundColor: "#fff6ea" }}>
             <BrowserRouter basename="/Recipes">
                 <Routes>
-                    <Route path="/Recipes" element={<Navigate to="all-items" />} />
-                    <Route path="item/:id" element={<ItemPage />} />
                     <Route path="all-items" element={<AllItemsPage />} />
+                    <Route path="item/:id" element={<ItemPage />} />
+                    {/* <Route path="all-items" element={<AllItemsPage />} /> */}
                     <Route path="*" element={<InvalidPath />} />
                 </Routes>
             </BrowserRouter>
