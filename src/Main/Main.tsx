@@ -11,7 +11,7 @@ function Main() {
                     <Route path="/Recipes" element={<Navigate to="/all-items" />} />
                     <Route path="/item/:id" element={<ItemPage />} />
                     <Route path="/all-items" element={<AllItemsPage />} />
-                    <Route path="*" element={<InvalidPath />} />
+                    <Route path="*" element={<AllItemsPage />} />
                 </Routes>
             </BrowserRouter>
         </main>
