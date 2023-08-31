@@ -1,9 +1,10 @@
 import styles from "./ItemPage.module.css";
 
-import useFetch from "../../hooks/Fetch";
+// import useFetch from "../../hooks/Fetch";
 import { useNavigate, useParams } from "react-router-dom";
 import Video from "../../Video";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 function ItemPage() {
     const navigate = useNavigate();
@@ -11,22 +12,43 @@ function ItemPage() {
 
     const url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + params.id;
     const currentData = useRef<any>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const measures: string[] = [];
     const ingredients: string[] = [];
     let videoId: string = "";
 
-    useFetch(url).then((response) => {
-        if (response !== undefined) {
-            currentData.current = response;
-            if (currentData.current) {
-                currentData.current = currentData.current[0];
-            }
-        } else {
-            console.log("NETWORK ERROR");
-        }
-    });
-    console.log(currentData.current);
+    useEffect(() => {
+        console.log(url);
+        axios
+            .get(url)
+            .then((response) => {
+                if (response !== undefined) {
+                    currentData.current = response.data.meals[0];
+                } else {
+                    console.log("NETWORK ERROR");
+                }
+            })
+            .then(() => {
+                console.log(currentData);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                throw new Error("Error" + error);
+            });
+    }, [url]);
+
+    // useFetch(url).then((response) => {
+    //     if (response !== undefined) {
+    //         currentData.current = response;
+    //         if (currentData.current) {
+    //             currentData.current = currentData.current[0];
+    //         }
+    //     } else {
+    //         console.log("NETWORK ERROR");
+    //     }
+    // });
+    // console.log(currentData.current);
 
     if (currentData.current !== undefined) {
         const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -59,7 +81,9 @@ function ItemPage() {
                     All items
                 </button>
 
-                {(currentData.current && (
+                {isLoading ? (
+                    <h1>LOADING...</h1>
+                ) : (
                     <>
                         <div className={styles.itemHeader}>
                             <span className={styles.itemCategory}>{currentData.current.strCategory}</span>
@@ -94,7 +118,11 @@ function ItemPage() {
                                     )) || (
                                         <div className={styles.ingredientsWrapper}>
                                             {ingredients.map((ingred, index) => {
-                                                return <span className={styles.itemIngred}>{ingred}: {measures[index]}</span>;
+                                                return (
+                                                    <span key={index} className={styles.itemIngred}>
+                                                        {ingred}: {measures[index]}
+                                                    </span>
+                                                );
                                             })}
                                         </div>
                                     )}
@@ -106,7 +134,7 @@ function ItemPage() {
                             <p className={styles.instructionText}>{currentData.current.strInstructions}</p>
                         </div>
                     </>
-                )) || <h1>LOADING...</h1>}
+                )}
             </div>
         </>
     );

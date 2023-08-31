@@ -3,16 +3,18 @@ import Item from "./Item/Item";
 
 import "./AllItemsPage.css";
 
-import { useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 
 import usePagination from "../../hooks/Pagination";
-import useFetch from "../../hooks/Fetch";
+// import useFetch from "../../hooks/Fetch";
+import axios from "axios";
 
 function AllItemsPage() {
     const url = "https://www.themealdb.com/api/json/v1/1/search.php?f=c";
     const currentData = useRef<string[]>([]);
-    const unfilteredData = useRef<string[]>([]);
+    const unfilteredData = useRef<any>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     let items: any = [];
 
     const isFilterOpened = useRef<any>();
@@ -28,15 +30,35 @@ function AllItemsPage() {
     const isFilteredByCategory = useRef<boolean>(false);
     const filterName = useRef<string>("");
 
-    useFetch(url).then((response) => {
-        if (response !== undefined) {
-            unfilteredData.current = response;
-            currentData.current = unfilteredData.current;
-        } else {
-            console.log("NETWORK ERROR");
-        }
-        console.log(unfilteredData);
-    });
+    useEffect(() => {
+        console.log(url);
+        axios
+            .get(url)
+            .then((response) => {
+                if (response !== undefined) {
+                    unfilteredData.current = response.data.meals;
+                } else {
+                    console.log("NETWORK ERROR");
+                }
+            })
+            .then(() => {
+                console.log(unfilteredData);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                throw new Error("Error" + error);
+            });
+    }, []);
+
+    // useFetch(url).then((response) => {
+    //     if (response !== undefined) {
+    //         unfilteredData.current = response;
+    //         currentData.current = unfilteredData.current;
+    //     } else {
+    //         console.log("NETWORK ERROR");
+    //     }
+    //     console.log(unfilteredData);
+    // });
 
     if (isFiltered) {
         if (isFilteredByTag.current) {
@@ -64,6 +86,8 @@ function AllItemsPage() {
             filterName.current = "";
         }
         page.current = 1;
+    } else {
+        currentData.current = unfilteredData.current;
     }
 
     items = usePagination(currentData.current);
@@ -128,6 +152,8 @@ function AllItemsPage() {
         }
     }
 
+    console.log("rendered");
+
     return (
         <div className="wrapper">
             <h1 className="main-header">All Recipes</h1>
@@ -137,7 +163,9 @@ function AllItemsPage() {
                     toogleFilterBar();
                 }}
             ></button>
-            {(unfilteredData.current[0] && (
+            {isLoading ? (
+                <h1>LOADING...</h1>
+            ) : (
                 <div className="mainbar">
                     <div
                         className="filterbar-bg"
@@ -180,17 +208,21 @@ function AllItemsPage() {
                                 return <Item key={item.idMeal} itemInfo={item} />;
                             })}
                         </div>
-                        <div className="pagination">
-                            <Pagination
-                                count={pageCount.current}
-                                page={page.current}
-                                size={window.innerWidth > 575 ? "large" : "small"}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        {currentData.current.length === 0 ? (
+                            <h1>No recipes found</h1>
+                        ) : (
+                            <div className="pagination">
+                                <Pagination
+                                    count={pageCount.current}
+                                    page={page.current}
+                                    size={window.innerWidth > 575 ? "large" : "small"}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
-            )) || <h1>LOADING...</h1>}
+            )}
         </div>
     );
 }
