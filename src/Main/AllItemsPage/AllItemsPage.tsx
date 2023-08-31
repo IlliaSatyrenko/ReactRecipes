@@ -137,60 +137,58 @@ function AllItemsPage() {
                     toogleFilterBar();
                 }}
             ></button>
-            {(unfilteredData.current[0] && (
-                <div className="mainbar">
-                    <div
-                        className="filterbar-bg"
-                        ref={filterBackgroundVisible}
-                        style={window.innerHeight < 1200 ? { right: "100%" } : {}}
-                        onClick={() => {
-                            toogleFilterBar();
-                        }}
-                    ></div>
-                    <div className="filterbar" ref={isFilterOpened} style={window.innerHeight < 1200 ? { right: "100%" } : {}}>
-                        <h2>Filter</h2>
-                        <div className="search-field">
-                            <input className="search-input" ref={filterInput} onKeyDown={(event) => onPressEnter(event)} />
-                            <button
-                                className="search-button"
-                                onClick={() => {
-                                    if (filterInput.current.value) {
-                                        if (!isFiltered) {
-                                            setIsFiltered(true);
-                                        } else {
-                                            rerender();
-                                        }
+            <div className="mainbar">
+                <div
+                    className="filterbar-bg"
+                    ref={filterBackgroundVisible}
+                    style={window.innerHeight < 1200 ? { right: "100%" } : {}}
+                    onClick={() => {
+                        toogleFilterBar();
+                    }}
+                ></div>
+                <div className="filterbar" ref={isFilterOpened} style={window.innerHeight < 1200 ? { right: "100%" } : {}}>
+                    <h2>Filter</h2>
+                    <div className="search-field">
+                        <input className="search-input" ref={filterInput} onKeyDown={(event) => onPressEnter(event)} />
+                        <button
+                            className="search-button"
+                            onClick={() => {
+                                if (filterInput.current.value) {
+                                    if (!isFiltered) {
+                                        setIsFiltered(true);
                                     } else {
-                                        setIsFiltered(false);
+                                        rerender();
                                     }
-                                    toogleFilterBar();
-                                }}
-                            />
-                        </div>
-                        <FilterCategory key={1} name="Category" data={unfilteredData.current} onChange={onClickFilterItem} />
-                        <FilterCategory key={2} name="Area" data={unfilteredData.current} onChange={onClickFilterItem} />
-                        <FilterCategory key={3} name="Tags" data={unfilteredData.current} onChange={onClickFilterItem} />
+                                } else {
+                                    setIsFiltered(false);
+                                }
+                                toogleFilterBar();
+                            }}
+                        />
                     </div>
-                    <div className="items-wrapper">
-                        <div className="items-header">
-                            {isFiltered && <h2 className="filtered-name">{filterName.current || filterInput.current.value}</h2>}
-                        </div>
-                        <div className="table">
-                            {items.currentData()?.map((item: any) => {
-                                return <Item key={item.idMeal} itemInfo={item} />;
-                            })}
-                        </div>
-                        <div className="pagination">
-                            <Pagination
-                                count={pageCount.current}
-                                page={page.current}
-                                size={window.innerWidth > 575 ? "large" : "small"}
-                                onChange={handleChange}
-                            />
-                        </div>
+                    <FilterCategory key={1} name="Category" data={unfilteredData.current} onChange={onClickFilterItem} />
+                    <FilterCategory key={2} name="Area" data={unfilteredData.current} onChange={onClickFilterItem} />
+                    <FilterCategory key={3} name="Tags" data={unfilteredData.current} onChange={onClickFilterItem} />
+                </div>
+                <div className="items-wrapper">
+                    <div className="items-header">
+                        {isFiltered && <h2 className="filtered-name">{filterName.current || filterInput.current.value}</h2>}
+                    </div>
+                    <div className="table">
+                        {items.currentData()?.map((item: any) => {
+                            return <Item key={item.idMeal} itemInfo={item} />;
+                        })}
+                    </div>
+                    <div className="pagination">
+                        <Pagination
+                            count={pageCount.current}
+                            page={page.current}
+                            size={window.innerWidth > 575 ? "large" : "small"}
+                            onChange={handleChange}
+                        />
                     </div>
                 </div>
-            )) || <h1>LOADING...</h1>}
+            </div>
         </div>
     );
 }
